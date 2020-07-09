@@ -96,6 +96,11 @@ BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 				BacklashFont:SetText(spellDur - spellDur % 0.1)
 				backlashCheck = 1
 			end
+                        if spellName == "Contrecoup" then
+				BacklashTexture:Show()
+				BacklashFont:SetText(spellDur - spellDur % 0.1)
+				backlashCheck = 1
+			end
 		elseif backlashCheck == 0 and BacklashTexture:IsShown() then
 			BacklashTexture:Hide()
 			BacklashFont:SetText("")
