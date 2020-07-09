@@ -91,7 +91,7 @@ BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 	for i=1,40 do
 		if select(1, UnitBuff("player", i)) ~= nil then
 			local spellName, _, _, _, _, spellDur, _, _, _, _, spellID = UnitBuff("player", i)
-			if spellID == "34936" then
+			if spellID == 34936 then
 				BacklashTexture:Show()
 				BacklashFont:SetText(spellDur - spellDur % 0.1)
 				backlashCheck = 1
