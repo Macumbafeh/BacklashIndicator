@@ -74,7 +74,7 @@ local SavedSettingsFrame = CreateFrame("Frame")
 SavedSettingsFrame:RegisterEvent("ADDON_LOADED")
 SavedSettingsFrame:RegisterEvent("PLAYER_LOGIN")
 SavedSettingsFrame:SetScript("OnEvent", function(self, event, arg1, ...)
-	if (event == "ADDON_LOADED" and arg1 == "BacklashIndicatorsigg") or event == "PLAYER_LOGIN" then
+	if (event == "ADDON_LOADED" and arg1 == "BacklashIndicator") or event == "PLAYER_LOGIN" then
 		SavedSettingsFrame:UnregisterEvent("ADDON_LOADED")
 		SavedSettingsFrame:UnregisterEvent("PLAYER_LOGIN")
 		if not savedBacklashSettings then
