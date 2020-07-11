@@ -1,4 +1,4 @@
-﻿if select(2, UnitClass("player")) ~= "WARLOCK" then
+if select(2, UnitClass("player")) ~= "WARLOCK" then
 	return
 end
 
@@ -15,7 +15,15 @@ BacklashBackground:SetHeight(36)
 
 local BacklashTexture = BacklashFrame:CreateTexture(nil)
 BacklashTexture:SetTexture("Interface\\Icons\\Spell_Fire_PlayingWithFire")
-BacklashTexture:SetAllPoints()
+BacklashTexture:SetPoint("LEFT")
+BacklashTexture:SetWidth(36)
+BacklashTexture:SetHeight(36)
+BacklashTexture:SetTexCoord(0.06, 0.94, 0.06, 0.94)
+BacklashTexture:Hide()
+
+local NightfallTexture = BacklashFrame:CreateTexture(nil)
+BacklashTexture:SetTexture("Interface\\Icons\\Spell_shadow_twilight")
+BacklashTexture:SetPoint("RIGHT")
 BacklashTexture:SetWidth(36)
 BacklashTexture:SetHeight(36)
 BacklashTexture:SetTexCoord(0.06, 0.94, 0.06, 0.94)
@@ -66,7 +74,7 @@ local SavedSettingsFrame = CreateFrame("Frame")
 SavedSettingsFrame:RegisterEvent("ADDON_LOADED")
 SavedSettingsFrame:RegisterEvent("PLAYER_LOGIN")
 SavedSettingsFrame:SetScript("OnEvent", function(self, event, arg1, ...)
-	if (event == "ADDON_LOADED" and arg1 == "BacklashIndicator") or event == "PLAYER_LOGIN" then
+	if (event == "ADDON_LOADED" and arg1 == "BacklashIndicatorsigg") or event == "PLAYER_LOGIN" then
 		SavedSettingsFrame:UnregisterEvent("ADDON_LOADED")
 		SavedSettingsFrame:UnregisterEvent("PLAYER_LOGIN")
 		if not savedBacklashSettings then
@@ -88,6 +96,7 @@ end)
 local BacklashUpdateFrame = CreateFrame("Frame")
 BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 	local backlashCheck = 0
+	local nightfallCheck = 0
 	for i=1,40 do
 		if select(1, UnitBuff("player", i)) ~= nil then
 			local spellid, _, _, _, _, spellDur = UnitBuff("player", i)
@@ -111,8 +120,22 @@ BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 				BacklashFont:SetText(spellDur - spellDur % 0.1)
 				backlashCheck = 1
 			end
+			if {spellid=18094} then
+				NightfallTexture:Show()
+				BacklashFont:SetText(spellDur - spellDur % 0.1)
+				nightfallCheck = 1
+			end
+			if {spellid=18095} then
+				NightfallTexture:Show()
+				BacklashFont:SetText(spellDur - spellDur % 0.1)
+				nightfallCheck = 1
+			end
 		elseif backlashCheck == 0 and BacklashTexture:IsShown() then
 			BacklashTexture:Hide()
+			BacklashFont:SetText("")
+			break
+		elseif nightfallCheck == 0 and NightfallTexture:IsShown() then
+			NightfallTexture:Hide()
 			BacklashFont:SetText("")
 			break
 		else
