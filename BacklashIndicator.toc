@@ -5,4 +5,3 @@
 ## DefaultState: disabled
 ## SavedVariables: savedBacklashSettings
 BacklashIndicator.lua
-Nightfallindicator.lua
