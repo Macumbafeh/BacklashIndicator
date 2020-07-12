@@ -7,22 +7,11 @@ BacklashFrame:SetPoint("CENTER")
 BacklashFrame:SetWidth(36)
 BacklashFrame:SetHeight(36)
 
-local NightfallFrame = CreateFrame("Frame", "NightfallFrame", UIParent)
-NightfallFrame:SetPoint("CENTER")
-NightfallFrame:SetWidth(36)
-NightfallFrame:SetHeight(36)
-
 local BacklashBackground = BacklashFrame:CreateTexture(nil, "BACKGROUND")
 BacklashBackground:SetAllPoints()
 BacklashBackground:SetTexture(0, 0, 0, 0.3)
 BacklashBackground:SetWidth(36)
 BacklashBackground:SetHeight(36)
-
-local NightfallBackground = NightfallFrame:CreateTexture(nil, "BACKGROUND")
-NightfallBackground:SetAllPoints()
-NightfallBackground:SetTexture(0, 0, 0, 0.3)
-NightfallBackground:SetWidth(36)
-NightfallBackground:SetHeight(36)
 
 local BacklashTexture = BacklashFrame:CreateTexture(nil)
 BacklashTexture:SetTexture("Interface\\Icons\\Spell_Fire_PlayingWithFire")
@@ -32,6 +21,30 @@ BacklashTexture:SetHeight(36)
 BacklashTexture:SetTexCoord(0.06, 0.94, 0.06, 0.94)
 BacklashTexture:Hide()
 
+local BacklashFont = BacklashFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+BacklashFont:SetPoint("CENTER", BacklashFrame, -1, -30)
+BacklashFont:SetFont("Fonts\\FRIZQT__.TTF", 18)
+BacklashFont:SetJustifyH("CENTER")
+BacklashFont:SetTextColor(1, 0, 0)
+BacklashFont:SetText("")
+
+BacklashFrame:SetMovable(true)
+BacklashFrame:EnableMouse(true)
+BacklashFrame:RegisterForDrag("LeftButton")
+BacklashFrame:SetScript("OnDragStart", function() BacklashFrame:StartMoving() end)
+BacklashFrame:SetScript("OnDragStop", function() BacklashFrame:StopMovingOrSizing() end)
+
+local NightfallFrame = CreateFrame("Frame", "NightfallFrame", UIParent)
+NightfallFrame:SetPoint("CENTER")
+NightfallFrame:SetWidth(36)
+NightfallFrame:SetHeight(36)
+
+local NightfallBackground = NightfallFrame:CreateTexture(nil, "BACKGROUND")
+NightfallBackground:SetAllPoints()
+NightfallBackground:SetTexture(0, 0, 0, 0.3)
+NightfallBackground:SetWidth(36)
+NightfallBackground:SetHeight(36)
+
 local NightfallTexture = NightfallFrame:CreateTexture(nil)
 NightfallTexture:SetTexture("Interface\\Icons\\Spell_shadow_twilight")
 NightfallTexture:SetPoint("RIGHT")
@@ -40,25 +53,12 @@ NightfallTexture:SetHeight(36)
 NightfallTexture:SetTexCoord(0.06, 0.94, 0.06, 0.94)
 NightfallTexture:Hide()
 
-local BacklashFont = BacklashFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-BacklashFont:SetPoint("CENTER", BacklashFrame, -1, -30)
-BacklashFont:SetFont("Fonts\\FRIZQT__.TTF", 18)
-BacklashFont:SetJustifyH("CENTER")
-BacklashFont:SetTextColor(1, 0, 0)
-BacklashFont:SetText("")
-
 local NightfallFont = NightfallFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
 NightfallFont:SetPoint("CENTER", NightfallFrame, -1, -30)
 NightfallFont:SetFont("Fonts\\FRIZQT__.TTF", 18)
 NightfallFont:SetJustifyH("CENTER")
 NightfallFont:SetTextColor(1, 0, 0)
 NightfallFont:SetText("")
-
-BacklashFrame:SetMovable(true)
-BacklashFrame:EnableMouse(true)
-BacklashFrame:RegisterForDrag("LeftButton")
-BacklashFrame:SetScript("OnDragStart", function() BacklashFrame:StartMoving() end)
-BacklashFrame:SetScript("OnDragStop", function() BacklashFrame:StopMovingOrSizing() end)
 
 NightfallFrame:SetMovable(true)
 NightfallFrame:EnableMouse(true)
@@ -167,32 +167,3 @@ BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 	end
 end)
 
-
-
-
-
-local NightfallUpdateFrame = CreateFrame("Frame")
-NightfallUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
-	local nightfallCheck = 0
-	for i=1,40 do
-		if select(1, UnitBuff("player", i)) ~= nil then
-			local spellName, _, _, _, _, spellDur = UnitBuff("player", i)
-            if spellName == GetSpellInfo(17941) then 
-			    NightfallTexture:Show()
-                NightfallFont:SetText(spellDur - spellDur % 0.1)
-                nightfallCheck = 1
-            end
-			if spellName == GetSpellInfo(18095) then 
-			    NightfallTexture:Show()
-                NightfallFont:SetText(spellDur - spellDur % 0.1)
-                nightfallCheck = 1
-            end
-		elseif nightfallCheck == 0 and NightfallTexture:IsShown() then
-			NightfallTexture:Hide()
-			NightfallFont:SetText("")
-			break
-		else
-			break
-		end
-	end
-end)
