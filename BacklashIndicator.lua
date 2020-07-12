@@ -167,3 +167,28 @@ BacklashUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
 	end
 end)
 
+local NightfallUpdateFrame = CreateFrame("Frame")
+NightfallUpdateFrame:SetScript("OnUpdate", function(self, event, arg1)
+	local nightfallCheck = 0
+	for i=1,40 do
+		if select(1, UnitBuff("player", i)) ~= nil then
+			local spellName, _, _, _, _, spellDur = UnitBuff("player", i)
+            if spellName == GetSpellInfo(17941) then 
+			    NightfallTexture:Show()
+                NightfallFont:SetText(spellDur - spellDur % 0.1)
+                nightfallCheck = 1
+            end
+			if spellName == GetSpellInfo(18095) then 
+			    NightfallTexture:Show()
+                NightfallFont:SetText(spellDur - spellDur % 0.1)
+                nightfallCheck = 1
+            end
+		elseif nightfallCheck == 0 and NightfallTexture:IsShown() then
+			NightfallTexture:Hide()
+			NightfallFont:SetText("")
+			break
+		else
+			break
+		end
+	end
+end)
