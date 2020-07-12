@@ -73,26 +73,37 @@ SlashCmdList["BACKLASH"] = function(msg)
 		BacklashBackground:Show()
 		BacklashFrame:SetScript("OnDragStart", function() BacklashFrame:StartMoving() end)
 		BacklashFrame:SetScript("OnDragStop", function() BacklashFrame:StopMovingOrSizing() end)
+		NightfallFrame:SetPoint("CENTER")
+		NightfallBackground:Show()
+		NightfallFrame:SetScript("OnDragStart", function() NightfallFrame:StartMoving() end)
+		NightfallFrame:SetScript("OnDragStop", function() NightfallFrame:StopMovingOrSizing() end)
 		savedBacklashSettings[1] = 0
 		savedBacklashSettings[2] = 0
 	elseif msg == "hide" then
 		BacklashBackground:Hide()
+		NightfallBackground:Hide()
 		savedBacklashSettings[1] = 1
 	elseif msg == "show" then
 		BacklashBackground:Show()
+		NightfallBackground:Show()
 		savedBacklashSettings[1] = 0
 	elseif msg == "lock" then
 		BacklashFrame:SetScript("OnDragStart", nil)
 		BacklashFrame:SetScript("OnDragStop", nil)
+		NightfallFrame:SetScript("OnDragStart", nil)
+		NightfallFrame:SetScript("OnDragStop", nil)
 		savedBacklashSettings[2] = 1
 	elseif msg == "unlock" then
 		BacklashFrame:SetScript("OnDragStart", function() BacklashFrame:StartMoving() end)
 		BacklashFrame:SetScript("OnDragStop", function() BacklashFrame:StopMovingOrSizing() end)
+		NightfallFrame:SetScript("OnDragStart", function() NightfallFrame:StartMoving() end)
+		NightfallFrame:SetScript("OnDragStop", function() NightfallFrame:StopMovingOrSizing() end)
 		savedBacklashSettings[2] = 0
 	else
 		DEFAULT_CHAT_FRAME:AddMessage("Available arguments are:\n reset - resets its position and settings\n hide - hides the background\n show - displays the background\n lock - locks its position\n unlock - unlocks its position")
 	end
 end
+
 
 local SavedSettingsFrame = CreateFrame("Frame")
 SavedSettingsFrame:RegisterEvent("ADDON_LOADED")
@@ -108,10 +119,13 @@ SavedSettingsFrame:SetScript("OnEvent", function(self, event, arg1, ...)
 		else
 			if savedBacklashSettings[1] == 1 then
 				BacklashBackground:Hide()
+				NightfallBackground:Hide()
 			end
 			if savedBacklashSettings[2] == 1 then
 				BacklashFrame:SetScript("OnDragStart", nil)
 				BacklashFrame:SetScript("OnDragStop", nil)
+				NightfallFrame:SetScript("OnDragStart", nil)
+				NightfallFrame:SetScript("OnDragStop", nil)
 			end
 		end
 	end
